@@ -1,32 +1,26 @@
-class FPSMeter {
-    constructor() {
-        this.fps = 0;
-        this.frames = 0;
-        this.lastTime = performance.now();
-        this.fpsDisplay = document.getElementById('fps');
-    }
-
-    update() {
-        this.frames++;
+// 简化的FPS计数器
+document.addEventListener('DOMContentLoaded', () => {
+    const fpsDisplay = document.getElementById('fps');
+    let fps = 0;
+    let frames = 0;
+    let lastTime = performance.now();
+    
+    function updateFPS() {
+        frames++;
         const now = performance.now();
         
-        if (now > this.lastTime + 1000) {
-            this.fps = Math.round((this.frames * 1000) / (now - this.lastTime));
-            this.fpsDisplay.textContent = `FPS: ${this.fps}`;
-            this.lastTime = now;
-            this.frames = 0;
+        if (now > lastTime + 1000) {
+            fps = Math.round((frames * 1000) / (now - lastTime));
+            fpsDisplay.textContent = `FPS: ${fps}`;
+            lastTime = now;
+            frames = 0;
         }
-
-        requestAnimationFrame(() => this.update());
+        
+        requestAnimationFrame(updateFPS);
     }
-
-    start() {
-        requestAnimationFrame(() => this.update());
-    }
-}
-
-// 当 DOM 加载完成后初始化 FPS 计数器
-document.addEventListener('DOMContentLoaded', () => {
-    const fpsMeter = new FPSMeter();
-    fpsMeter.start();
+    
+    // 初始显示
+    fpsDisplay.textContent = 'FPS: 60';
+    // 启动FPS计数器
+    requestAnimationFrame(updateFPS);
 });

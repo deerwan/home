@@ -1,4 +1,4 @@
-// 主题切换功能
+// 简化的主题切换功能
 function toggleTheme(isDark) {
     document.documentElement.setAttribute('data-theme', isDark ? 'dark' : 'light');
     localStorage.setItem('theme-preference', isDark ? 'dark' : 'light');
@@ -18,8 +18,7 @@ function checkAndSetTheme() {
     } else {
         // 根据东八区（北京时间）自动设置
         const hour = (new Date().getUTCHours() + 8) % 24;
-        const isDayTime = hour >= 6 && hour < 18;
-        toggleTheme(!isDayTime);
+        toggleTheme(hour < 6 || hour >= 18);
     }
 }
 
@@ -33,13 +32,7 @@ function manualToggleTheme() {
 checkAndSetTheme();
 
 // 初始化主题图标
-document.addEventListener('DOMContentLoaded', () => {
-    const currentTheme = document.documentElement.getAttribute('data-theme');
-    const themeIcon = document.getElementById('theme-icon');
-    if (themeIcon) {
-        themeIcon.className = currentTheme === 'dark' ? 'ri-sun-line' : 'ri-moon-line';
-    }
-});
+document.addEventListener('DOMContentLoaded', checkAndSetTheme);
 
 // 每小时检查一次时间并更新主题（仅当用户没有手动设置主题时）
 setInterval(() => {
