@@ -1,0 +1,18 @@
+# 依赖目录
+/node_modules
+
+# 编辑器目录和文件
+.vscode
+
+
+# 操作系统文件
+# macOS
+.DS_Store
+# Linux
+*.swp
+# Windows
+Thumbs.db
+
+
+# 备份文件
+assets/buckup/

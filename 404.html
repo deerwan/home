@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>页面未找到 - Deer</title>
+    <link rel="icon" href="./assets/top.png">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+    <link href="./css/style.css" rel="stylesheet">
+    <link href="./css/background.css" rel="stylesheet">
+    <link rel="stylesheet" href="./css/cursor-styles.css">
+    <style>
+        .error-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            min-height: 70vh;
+            padding: 2rem;
+        }
+        
+        .error-code {
+            font-size: 8rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin: 0;
+            line-height: 1;
+            opacity: 0.2;
+            position: absolute;
+            z-index: -1;
+        }
+        
+        .error-title {
+            font-size: 2.5rem;
+            margin: 1rem 0;
+            color: var(--text-primary);
+        }
+        
+        .error-message {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+            max-width: 600px;
+        }
+        
+        .home-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--card-bg);
+            color: var(--text-color);
+            padding: 0.8rem 1.5rem;
+            border-radius: var(--border-radius);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all var(--transition-speed) ease;
+        }
+        
+        .home-button:hover {
+            transform: translateY(-3px);
+            background: var(--card-hover);
+        }
+        
+        .home-button i {
+            font-size: 1.2rem;
+        }
+    </style>
+</head>
+<body>
+    <div id="fps" style="position: fixed; top: 10px; right: 10px; color: white; padding: 5px 10px; border-radius: 4px; font-size: 14px; z-index: 9999;"></div>
+    
+    <!-- 主题切换按钮已移除 -->
+    
+    <div class="container">
+        <div class="error-container">
+            <div class="error-code">404</div>
+            <h1 class="error-title">页面未找到</h1>
+            <p class="error-message">抱歉，您尝试访问的页面不存在或已被移动。请检查您输入的网址是否正确。</p>
+            <a href="/" class="home-button">
+                <i class="ri-home-4-line"></i>
+                返回首页
+            </a>
+        </div>
+        
+        <footer class="footer">
+            <div class="footer-content">
+                <div class="copyright">
+                    Deer © 2025
+                    <a href="https://github.com/deerwan/home" target="_blank" style="color: inherit; text-decoration: none;">
+                        <i class="ri-github-fill"></i> GitHub
+                    </a>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- 移除了主题切换脚本的引用，保留FPS脚本 -->
+    <script src="./js/fps.js"></script>
+</body>
+</html>
