@@ -5,12 +5,75 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hi, I'm Deer</title>
     <link rel="icon" href="./assets/top.png">
-    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
-    <link href="./css/style.css" rel="stylesheet">
-    <link href="./css/background.css" rel="stylesheet">
-    <link rel="stylesheet" href="./css/cursor-styles.css">
+    <meta name="description" content="Deer的个人主页 - 分享技术和生活">
+    <!-- 内联关键CSS -->
+    <style>
+        :root {
+            --bg-color: #ffffff;
+            --text-color: #374151;
+            --transition-speed: 0.3s;
+        }
+        [data-theme="dark"] {
+            --bg-color: #1a1a1a;
+            --text-color: #ffffff;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+        body.loaded {
+            opacity: 1;
+        }
+        .loading {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: var(--bg-color);
+            z-index: 9999;
+            transition: opacity 0.5s ease;
+        }
+        .loading.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+    </style>
+    <!-- 预连接常用域名 -->
+    <link rel="preconnect" href="https://cdn.jsdelivr.net">
+    <!-- 异步加载非关键CSS -->
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="./css/style.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="./css/background.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="./css/cursor-styles.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <!-- 后备方案 -->
+    <noscript>
+        <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+        <link href="./css/style.css" rel="stylesheet">
+        <link href="./css/background.css" rel="stylesheet">
+        <link href="./css/cursor-styles.css" rel="stylesheet">
+    </noscript>
 </head>
 <body>
+    <!-- 加载动画 -->
+    <div class="loading">
+        <svg width="50" height="50" viewBox="0 0 50 50">
+            <circle cx="25" cy="25" r="20" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round">
+                <animate attributeName="stroke-dasharray" from="1, 150" to="90, 150" dur="1.5s" repeatCount="indefinite"/>
+                <animate attributeName="stroke-dashoffset" from="0" to="-120" dur="1.5s" repeatCount="indefinite"/>
+            </circle>
+        </svg>
+    </div>
+
+    <!-- 背景图预加载 -->
+    <img src="./assets/images/backgrounds/bg.jpg" alt="Background" class="background-preload">
+
     <div id="fps" style="position: fixed; top: 10px; right: 10px; color: white; padding: 5px 10px; border-radius: 4px; font-size: 14px; z-index: 9999;"></div>
     <div class="nav-trigger"></div>
     
@@ -236,8 +299,6 @@
             </div>
         </section>
 
-
-
         <footer class="footer">
             <div class="footer-content">
                 <div class="copyright">
@@ -250,7 +311,35 @@
         </footer>
     </div>
 
-    <script src="./js/theme.js"></script>
-    <script src="./js/fps.js"></script>
+    <!-- 优化的脚本加载 -->
+    <script>
+        // 页面加载性能监控
+        const perfData = window.performance.timing;
+        
+        // 页面加载完成后处理
+        window.addEventListener('load', function() {
+            document.body.classList.add('loaded');
+            document.querySelector('.loading').classList.add('hidden');
+            
+            // 延迟加载非关键脚本
+            setTimeout(function() {
+                const themeScript = document.createElement('script');
+                themeScript.src = './js/theme.js';
+                themeScript.defer = true;
+                document.body.appendChild(themeScript);
+                
+                const fpsScript = document.createElement('script');
+                fpsScript.src = './js/fps.js';
+                fpsScript.defer = true;
+                document.body.appendChild(fpsScript);
+                
+                // 输出页面加载时间（开发模式）
+                if (window.location.search.includes('dev=true')) {
+                    const loadTime = perfData.loadEventEnd - perfData.navigationStart;
+                    console.log(`页面加载时间: ${loadTime}ms`);
+                }
+            }, 100);
+        });
+    </script>
 </body>
 </html>

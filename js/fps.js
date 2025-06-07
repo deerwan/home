@@ -1,6 +1,16 @@
-// 简化的FPS计数器
+// 简化的FPS计数器，仅在开发模式下显示
 document.addEventListener('DOMContentLoaded', () => {
     const fpsDisplay = document.getElementById('fps');
+    
+    // 检查是否为开发环境（可以通过URL参数控制）
+    const isDevMode = window.location.search.includes('dev=true');
+    
+    // 非开发环境下隐藏FPS显示
+    if (!isDevMode) {
+        fpsDisplay.style.display = 'none';
+        return;
+    }
+    
     let fps = 0;
     let frames = 0;
     let lastTime = performance.now();

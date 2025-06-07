@@ -15,6 +15,9 @@
     --icon-size-mobile: 2.2rem;
     --border-radius: 8px;
     --transition-speed: 0.3s;
+    
+    /* 性能优化变量 */
+    --transform-gpu: translateZ(0); /* 启用GPU加速 */
 }
 
 [data-theme="dark"] {
@@ -29,6 +32,13 @@
     --scrollbar-color: rgba(255, 255, 255, 0.3);
 }
 
+@media (prefers-reduced-motion: reduce) {
+    * {
+        transition-duration: 0.001ms !important;
+        animation-duration: 0.001ms !important;
+    }
+}
+
 body {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     background-color: var(--bg-color);
@@ -36,12 +46,22 @@ body {
     line-height: 1.5;
     padding: 2rem 2rem;
     margin: 0;
+    will-change: opacity; /* 暗示浏览器优化属性变化 */
+    text-rendering: optimizeSpeed; /* 优化渲染速度 */
 }
 
 .container {
     max-width: 85ch;
     margin: 0 auto;
     padding-top: 0;
+    opacity: 0;
+    animation: fadeIn 0.5s ease forwards;
+    animation-delay: 0.3s;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
 h1 {
@@ -50,6 +70,14 @@ h1 {
     font-weight: 700;
     letter-spacing: -0.02em;
     color: var(--text-color);
+    opacity: 0;
+    animation: slideIn 0.5s ease forwards;
+    animation-delay: 0.5s;
+}
+
+@keyframes slideIn {
+    from { opacity: 0; transform: translateX(-20px); }
+    to { opacity: 1; transform: translateX(0); }
 }
 
 .intro {
@@ -117,17 +145,37 @@ h1 {
     margin-top: 1rem;
 }
 
-/* 项目卡片样式 */
+/* 项目卡片样式 - 优化版 */
 .project-card {
     border-radius: 10px;
     padding: 12px;
-    transition: all var(--transition-speed) ease;
+    transition: all var(--transition-speed) cubic-bezier(0.23, 1, 0.32, 1);
     background: rgba(255, 255, 255, 0.1);
+    transform: translateZ(0); /* GPU加速 */
+    position: relative;
+    overflow: hidden;
+}
+
+.project-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(120deg, transparent, rgba(255,255,255,0.1), transparent);
+    transform: translateX(-100%);
+    transition: transform 0.6s;
 }
 
 .project-card:hover {
     transform: translateY(-5px);
     background: rgba(255, 255, 255, 0.15);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+}
+
+.project-card:hover::before {
+    transform: translateX(100%);
 }
 
 [data-theme="dark"] .project-card {
@@ -136,12 +184,15 @@ h1 {
 
 [data-theme="dark"] .project-card:hover {
     background: rgba(0, 0, 0, 0.25);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
 }
 
 .project-header {
     display: flex;
     align-items: center;
     gap: 0.7rem;  /* 减小图标和文字的间距 */
+    position: relative;
+    z-index: 1;
 }
 
 .project-icon {
@@ -236,8 +287,6 @@ h1 {
 .theme-toggle i {
     font-size: 1.4rem;
 }
-
-
 
 @media (max-width: 600px) {
     body {

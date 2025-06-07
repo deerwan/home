@@ -6,6 +6,7 @@ body::before, body::after {
     left: 0;
     width: 100%;
     height: 100%;
+    transition: opacity 0.5s ease;
 }
 
 body::before {
@@ -16,6 +17,11 @@ body::before {
     background-repeat: no-repeat;
     background-attachment: fixed;
     image-rendering: -webkit-optimize-contrast;
+    opacity: 0; /* 初始透明，等待加载 */
+}
+
+body.loaded::before {
+    opacity: 1; /* 加载完成后显示 */
 }
 
 body::after {
@@ -26,6 +32,15 @@ body::after {
 
 [data-theme="dark"] body::after {
     background-color: rgba(0, 0, 0, 0.5);
+}
+
+/* 添加背景预加载 */
+.background-preload {
+    position: fixed;
+    width: 1px;
+    height: 1px;
+    opacity: 0;
+    z-index: -9999;
 }
 
 /* 移动端优化 */

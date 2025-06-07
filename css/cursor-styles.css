@@ -1,21 +1,31 @@
-/* 自定义鼠标指针样式 */
+/* 自定义鼠标指针样式 - 性能优化版本 */
 
-/* 全局鼠标指针样式 - 默认状态 */
-* {
-    cursor: url('../assets/images/mouse.png'), auto;
+/* 在触摸设备上禁用自定义鼠标样式 */
+@media (hover: hover) {
+    /* 全局鼠标指针样式 - 默认状态 */
+    * {
+        cursor: url('../assets/images/mouse.png'), auto;
+    }
+
+    /* 链接和可点击元素的鼠标指针样式 */
+    a, button, input[type="submit"], input[type="button"], .clickable {
+        cursor: url('../assets/images/mouse.png'), pointer;
+    }
+
+    /* 文本输入区域的鼠标指针样式 */
+    input[type="text"], input[type="email"], input[type="url"], textarea, [contenteditable="true"] {
+        cursor: url('../assets/images/mouse.png'), text;
+    }
+
+    /* 禁用元素的鼠标指针样式 */
+    [disabled], .disabled {
+        cursor: url('../assets/images/mouse.png'), not-allowed;
+    }
 }
 
-/* 链接和可点击元素的鼠标指针样式 */
-a, button, input[type="submit"], input[type="button"], .clickable {
-    cursor: url('../assets/images/mouse.png'), pointer;
-}
-
-/* 文本输入区域的鼠标指针样式 */
-input[type="text"], input[type="email"], input[type="url"], textarea, [contenteditable="true"] {
-    cursor: url('../assets/images/mouse.png'), text;
-}
-
-/* 禁用元素的鼠标指针样式 */
-[disabled], .disabled {
-    cursor: url('../assets/images/mouse.png'), not-allowed;
+/* 在移动设备上使用默认光标 */
+@media (hover: none) {
+    * {
+        cursor: auto;
+    }
 }
