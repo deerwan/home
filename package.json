@@ -1,0 +1,17 @@
+{
+  "name": "personal-homepage",
+  "version": "1.0.0",
+  "description": "Personal homepage with automated deployment",
+  "scripts": {
+    "build": "npm run optimize-images && npm run generate-sitemap",
+    "optimize-images": "imagemin assets/images/* --out-dir=dist/assets/images",
+    "generate-sitemap": "node scripts/generate-sitemap.js"
+  },
+  "devDependencies": {
+    "imagemin": "^8.0.1",
+    "imagemin-jpegtran": "^7.0.0",
+    "imagemin-pngquant": "^9.0.2",
+    "imagemin-svgo": "^10.0.1",
+    "sitemap": "^7.1.1"
+  }
+} 
