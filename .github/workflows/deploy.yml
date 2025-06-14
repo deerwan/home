@@ -22,12 +22,11 @@ jobs:
       - name: Remove npm cache folder
         run: rm -rf ~/.npm
 
-      - name: Set npm registry (use npmmirror)
-        run: npm config set registry https://registry.npmmirror.com
+      - name: Set npm registry (use official)
+        run: npm config set registry https://registry.npmjs.org
 
       - name: Install dependencies
-        run: |
-          npm install
+        run: npm install --legacy-peer-deps --force
 
       - name: Optimize images
         uses: calibreapp/image-actions@main
