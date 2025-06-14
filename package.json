@@ -9,9 +9,10 @@
   },
   "devDependencies": {
     "imagemin": "^8.0.1",
+    "imagemin-cli": "^8.0.0",
     "imagemin-jpegtran": "^7.0.0",
     "imagemin-pngquant": "^9.0.2",
     "imagemin-svgo": "^10.0.1",
     "sitemap": "^7.1.1"
   }
-} 
+}
