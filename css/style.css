@@ -343,58 +343,7 @@ a {
     }
 }
 
-/* 首先添加触发区域 */
-.nav-trigger {
-    position: fixed;
-    left: 0;
-    top: 0;
-    width: 10px;
-    height: 100vh;
-    z-index: 999;
-}
 
-.side-nav {
-    position: fixed;
-    left: 0;
-    top: 50%;
-    transform: translateY(-50%);
-    padding: 10px 8px;
-    background: transparent;
-    backdrop-filter: none;
-    -webkit-backdrop-filter: none;
-    border-radius: 0;
-    z-index: 1000;
-}
-
-.nav-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-
-.nav-item {
-    margin: 4px 0;
-}
-
-.nav-item a {
-    display: flex;
-    align-items: center;
-    padding: 4px;
-    transition: transform 0.2s ease;
-    border-radius: 6px;
-    background: transparent;
-}
-
-.nav-icon {
-    width: 24px;
-    height: 24px;
-    object-fit: contain;
-}
-
-.nav-item a:hover {
-    transform: scale(1.1);
-    background: transparent;
-}
 
 /* 技术栈样式 */
 .skills-section {
@@ -461,25 +410,6 @@ a {
         height: 32px;
     }
     
-    .side-nav {
-        display: none;
-    }
-}
-
-/* 自定义滚动条 */
-.side-nav::-webkit-scrollbar {
-    width: 4px;
-}
-
-.side-nav::-webkit-scrollbar-thumb {
-    background: var(--scrollbar-color, rgba(0, 0, 0, 0.2));
-    border-radius: 2px;
-}
-
-/* 暗色模式适配 */
-@media (prefers-color-scheme: dark) {
-    .side-nav::-webkit-scrollbar-thumb {
-        background: var(--scrollbar-color, rgba(255, 255, 255, 0.2));
     }
 }
 
